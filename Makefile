@@ -1,7 +1,7 @@
 PYTHON_VERSION=python3
 
 clean:
-	pip uninstall -y algorithms
+	pip uninstall -y algorithms || true
 	rm -rf .venv
 
 validate:
