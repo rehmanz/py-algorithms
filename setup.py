@@ -9,5 +9,5 @@ setup(name='algorithms',
       license='MIT',
       packages=['algorithms'],
       zip_safe=False,
-      test_suite='nose.collector',
-      tests_require=['nose'])
+      setup_requires='pytest-runner',
+      tests_require=['pytest'])
