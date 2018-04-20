@@ -49,3 +49,13 @@ on *N* objects.
 For *10<sup>9</sup>* objects, it would take *10<sup>9</sup>* union commands. Hence it would take
 *10<sup>18</sup>* operations or over 30 years for the fastest computer on this planet to complete the computation.
 
+**QuickUnionUF Class**
+
+| Operation | Description | Complexity |
+| ----------| ----------- | ---------- |
+| `QuickUnionUF(n)` | Initialize Quick-union data structure with *N* objects | N |
+| `union(p, q)` | Change root of _p_ to point to root of _q_ | N (Worst Case) |
+| `boolean connected(p, q)` | Check _p_ and _q_ have same root | N (Worst Case) |
+
+Quick-union is also **too slow** for cases when the tree get's really tall (Worst Case). Operation to find the root of
+the item is too expensive and could potentially require _N_ array accesses.
