@@ -1,12 +1,19 @@
-class QuickFindUF:
+class QuickUnionUF:
     def __init__(self, n):
         self.id = []
         [self.id.append(i) for i in range(n)]
 
-
     def __validate(self, p):
         if p < 0 or p >= len(self.id):
             raise ValueError("Index %s is not between 0 and %s" %(p, len(self.id) - 1))
+
+    # find the root of i
+    def __root(self, i):
+        self.__validate(i)
+
+        while (i != self.id[i]):
+            i = self.id[i]
+        return i
 
     def connected(self, p, q):
         '''
@@ -19,7 +26,7 @@ class QuickFindUF:
         self.__validate(p)
         self.__validate(q)
 
-        return self.id[p] == self.id[q]
+        return self.__root(p) == self.__root(q)
 
     def union(self, p, q):
         """
@@ -27,9 +34,7 @@ class QuickFindUF:
         :param p:
         :param q:
         """
-        p_id = self.id[p]
-        q_id = self.id[q]
+        p_root = self.__root(p)
+        q_root = self.__root(q)
 
-        for i in range(len(self.id)):
-            if self.id[i] == p_id:
-                self.id[i] = q_id
+        self.id[p_root] = q_root
