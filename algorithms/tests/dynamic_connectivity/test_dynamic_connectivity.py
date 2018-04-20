@@ -5,6 +5,7 @@ import algorithms
 
 from algorithms.src.dynamic_connectivity.quick_find import QuickFindUF
 from algorithms.src.dynamic_connectivity.quick_union import QuickUnionUF
+from algorithms.src.dynamic_connectivity.weighted_quick_union import WeightedQuickUnionUF
 
 LOGGER = logging.getLogger()
 
@@ -52,6 +53,19 @@ class DynamicConnectivityTest(unittest.TestCase):
             p = int(t[0])
             q = int(t[1])
             self.assertTrue(quick_union_o.connected(p, q), "%s != %s" %(p, q))
+
+    def test_weighted_quick_union(self):
+        w_quick_union_o = WeightedQuickUnionUF(n=self.n)
+        for t in self.objects_l:
+            p = int(t[0])
+            q = int(t[1])
+            w_quick_union_o.union(p, q)
+            LOGGER.debug("%s %s" %(p, q))
+
+        for t in self.objects_l:
+            p = int(t[0])
+            q = int(t[1])
+            self.assertTrue(w_quick_union_o.connected(p, q), "%s != %s" %(p, q))
 
     @classmethod
     def tearDownClass(self):

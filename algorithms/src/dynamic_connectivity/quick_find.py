@@ -1,8 +1,8 @@
 class QuickFindUF:
     def __init__(self, n):
         self.id = []
-        for i in range(n):
-            self.id.append(i)
+        [self.id.append(i) for i in range(n)]
+
 
     def __validate(self, p):
         if p < 0 or p >= len(self.id):

@@ -1,17 +1,22 @@
-class QuickUnionUF:
+class WeightedQuickUnionUF:
     def __init__(self, n):
         self.id = []
-        [self.id.append(i) for i in range(n)]
+        self.sz = []
+
+        for i in range(n):
+            self.id.append(i)
+            self.sz.append(0)
 
     def __validate(self, p):
         if p < 0 or p >= len(self.id):
             raise ValueError("Index %s is not between 0 and %s" %(p, len(self.id) - 1))
 
-    # find the root of i
+    # find the root of i and make every other node in path point to it's grandparent (thereby halving path lenght)
     def __root(self, i):
         self.__validate(i)
 
         while (i != self.id[i]):
+            self.id[i] = self.id[self.id[i]]
             i = self.id[i]
         return i
 
@@ -37,4 +42,12 @@ class QuickUnionUF:
         p_root = self.__root(p)
         q_root = self.__root(q)
 
-        self.id[p_root] = q_root
+        if (p_root == q_root):
+            return
+
+        if self.sz[p_root] < self.sz[q_root]:
+            self.id[q_root] = q_root
+            self.sz[q_root] += self.sz[q_root]
+        else:
+            self.id[q_root] = p_root
+            self.sz[p_root] += self.sz[q_root]
