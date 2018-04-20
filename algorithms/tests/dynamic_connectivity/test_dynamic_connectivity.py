@@ -1,3 +1,4 @@
+import os
 import logging
 import unittest
 import algorithms
@@ -11,11 +12,19 @@ class DynamicConnectivityTest(unittest.TestCase):
     def setUpClass(self):
         logging.basicConfig(level=logging.DEBUG)
 
-        with open("data/tiny_uf.txt", "r") as f:
-            self.n = int(f.readline())
-            self.objects_l = ([tuple(line.split()) for line in f])
+        try:
+            if "dynamic_connectivity" in os.getcwd():
+                data_file = os.path.join(os.getcwd(), "data/tiny_uf.txt")
+            else:
+                data_file = "%s/algorithms/tests/dynamic_connectivity/data/tiny_uf.txt" %os.getcwd()
 
-        LOGGER.debug(self.objects_l)
+            with open(data_file, "r") as f:
+                self.n = int(f.readline())
+                self.objects_l = ([tuple(line.split()) for line in f])
+
+            LOGGER.debug(self.objects_l)
+        except Exception as e:
+            raise ValueError("Could not open data file - %s" %e)
 
     def test_quick_find(self):
         quick_find_o = QuickFindUF(n=self.n)
